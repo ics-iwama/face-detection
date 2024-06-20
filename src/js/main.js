@@ -47,7 +47,7 @@ async function enableCam() {
   const constraints = {
     video: true,
     width: 640,
-    height: 480,
+    height: 480
   };
 
   const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -175,7 +175,7 @@ function drawCanvas() {
       x: adjustedX,
       y: adjustedY,
       scale: 4 * scale,
-      angle: angle,
+      angle: angle
     });
   } else if (currentDeco === 'rabbit') {
     const { x: adjustedX, y: adjustedY } =
@@ -185,7 +185,7 @@ function drawCanvas() {
       x: adjustedX,
       y: adjustedY,
       scale: 3.2 * scale,
-      angle: angle,
+      angle: angle
     });
   } else if (currentDeco === 'ribbon') {
     const { x: adjustedX, y: adjustedY } =
@@ -195,7 +195,7 @@ function drawCanvas() {
       x: adjustedX,
       y: adjustedY,
       scale: 3.5 * scale,
-      angle: angle,
+      angle: angle
     });
   } else if (currentDeco === 'cat02') {
     const { x: adjustedX, y: adjustedY } =
@@ -205,7 +205,7 @@ function drawCanvas() {
       x: adjustedX,
       y: adjustedY,
       scale: 3.5 * scale,
-      angle: angle,
+      angle: angle
     });
   } else if (currentDeco === 'cat03') {
     const { x: adjustedX, y: adjustedY } =
@@ -215,7 +215,7 @@ function drawCanvas() {
       x: adjustedX,
       y: adjustedY,
       scale: 3.5 * scale,
-      angle: angle,
+      angle: angle
     });
   } else if (currentDeco === 'bear01') {
     const { x: adjustedX, y: adjustedY } =
@@ -225,7 +225,7 @@ function drawCanvas() {
       x: adjustedX,
       y: adjustedY,
       scale: 3.5 * scale,
-      angle: angle,
+      angle: angle
     });
   }
 }
@@ -240,7 +240,7 @@ function loadDecoImages() {
 }
 
 // デコレーション画像を描画する関数
-function drawDecoImage({ image, x, y, scale = 1, xFix = 0, yFix = 0, angle = 0  }) {
+function drawDecoImage({ image, x, y, scale = 1, xFix = 0, yFix = 0, angle = 0 }) {
   const flippedX = canvasElement.width - x;
   const dx = flippedX - image.width / scale / 2; // 画像の中心に合わせるための計算
   const dy = y - image.height / scale / 2; // 画像の中心に合わせるための計算
