@@ -2,11 +2,9 @@
 <html lang='ja'>
 <head>
   <meta charset='UTF-8' />
-  <link rel='icon' type='image/svg+xml' href='/vite.svg' />
+  <link rel='icon' type='image/svg+xml' href='./vite.svg' />
   <meta name='viewport' content='width=device-width, initial-scale=1.0' />
   <title>Tensorflow.js & Face Detection</title>
-  <link rel='stylesheet' href='css/reset.css' />
-  <link rel='stylesheet' href='css/style.css' />
   <link rel='preconnect' href='https://fonts.googleapis.com'>
   <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
   <link href='https://fonts.googleapis.com/css2?family=Itim&display=swap' rel='stylesheet'>
@@ -18,6 +16,8 @@
   <script src='https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl/dist/tf-backend-webgl.js'></script>
   <!-- TensorFlow Models Face Detection -->
   <script src='https://cdn.jsdelivr.net/npm/@tensorflow-models/face-detection/dist/face-detection.js'></script>
+  <script type="module" crossorigin src="./assets/index-DC4E2w1g.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DHAJIF8v.css">
 </head>
 <body>
 <div id='app'>
@@ -49,36 +49,35 @@
   <ul class='buttonList'>
     <li class='buttonList-item'>
       <button class='button' data-deco='hige'>
-        <img src='/face-detection/images/hige.png' alt='ひげのスタンプ' width='80'>
+        <img src='./face-detection/images/hige.png' alt='ひげのスタンプ' width='80'>
       </button>
     </li>
     <li class='buttonList-item'>
       <button class='button' data-deco='rabbit'>
-        <img src='/face-detection/images/rabbit.png' alt='リップのスタンプ' width='60'>
+        <img src='./face-detection/images/rabbit.png' alt='リップのスタンプ' width='60'>
       </button>
     </li>
     <li class='buttonList-item'>
       <button class='button button-white' data-deco='ribbon'>
-        <img src='/face-detection/images/ribbon.png' alt='リボンのスタンプ' width='80'>
+        <img src='./face-detection/images/ribbon.png' alt='リボンのスタンプ' width='80'>
       </button>
     </li>
     <li class='buttonList-item'>
       <button class='button' data-deco='cat02'>
-        <img src='/face-detection/images/cat02.png' alt='猫耳のスタンプ' width='80'>
+        <img src='./face-detection/images/cat02.png' alt='猫耳のスタンプ' width='80'>
       </button>
     </li>
     <li class='buttonList-item'>
       <button class='button' data-deco='cat03'>
-        <img src='/face-detection/images/cat03.png' alt='猫耳のスタンプ' width='80'>
+        <img src='./face-detection/images/cat03.png' alt='猫耳のスタンプ' width='80'>
       </button>
     </li>
     <li class='buttonList-item'>
       <button class='button' data-deco='bear01'>
-        <img src='/face-detection/images/bear01.png' alt='クマ耳のスタンプ' width='80'>
+        <img src='./face-detection/images/bear01.png' alt='クマ耳のスタンプ' width='80'>
       </button>
     </li>
   </ul>
 </div>
-<script type='module' src='js/main.js'></script>
 </body>
 </html>

@@ -234,7 +234,7 @@ function drawCanvas() {
 function loadDecoImages() {
   decoImageList.forEach((name) => {
     const img = new Image();
-    img.src = `../images/${name}.png`;
+    img.src = `face-detection/images/${name}.png`;
     decoLoadedImage[name] = img;
   });
 }
