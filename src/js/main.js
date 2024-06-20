@@ -1,6 +1,6 @@
 // グローバルな変数定義
 let detector;
-let result;
+let results;
 let decoImageList = ['hige', 'ribbon', 'rabbit', 'cat02', 'cat03', 'bear01']; //loadする画像のリスト
 let decoLoadedImage = {}; // loadした画像を格納するオブジェクト
 let buttonElements = document.querySelectorAll('.button');
@@ -110,12 +110,7 @@ async function createFaceDetector() {
 async function estimateFaces() {
   const estimationConfig = { flipHorizontal: false };
 
-  const results = await detector.estimateFaces(webcamElement, estimationConfig);
-
-  // ここで結果が格納される
-  // 何が入っているかは下記URL参照
-  // https://github.com/tensorflow/tfjs-models/tree/master/face-detection
-  result = results[0]; // 検知した顔のリスト（今回は一人しか取得しない）
+  results = await detector.estimateFaces(webcamElement, estimationConfig);
 }
 
 // デコレーションの位置を計算する関数
@@ -138,96 +133,98 @@ function calculateAdjustedPosition(baseX, baseY, offsetX, offsetY, angle) {
 
 // Canvasにデコレーション画像を描画する関数
 function drawCanvas() {
-  if (!result) return;
+  if (!results || results.length === 0) return;
 
-  const { keypoints } = result;
+  results.forEach(result => {
+    const { keypoints } = result;
 
-  const noseTip = keypoints.find((keypoint) => keypoint.name === 'noseTip');
-  const rightEye = keypoints.find((keypoint) => keypoint.name === 'rightEye');
-  const leftEye = keypoints.find((keypoint) => keypoint.name === 'leftEye');
-  const mouthCenter = keypoints.find(
-    (keypoint) => keypoint.name === 'mouthCenter'
-  );
-  const rightEarTragion = keypoints.find(
-    (keypoint) => keypoint.name === 'rightEarTragion'
-  );
-  const leftEarTragion = keypoints.find(
-    (keypoint) => keypoint.name === 'leftEarTragion'
-  );
+    const noseTip = keypoints.find((keypoint) => keypoint.name === 'noseTip');
+    const rightEye = keypoints.find((keypoint) => keypoint.name === 'rightEye');
+    const leftEye = keypoints.find((keypoint) => keypoint.name === 'leftEye');
+    const mouthCenter = keypoints.find(
+      (keypoint) => keypoint.name === 'mouthCenter'
+    );
+    const rightEarTragion = keypoints.find(
+      (keypoint) => keypoint.name === 'rightEarTragion'
+    );
+    const leftEarTragion = keypoints.find(
+      (keypoint) => keypoint.name === 'leftEarTragion'
+    );
 
-  // 顔の傾きを計算する
-  const dx = rightEye.x - leftEye.x;
-  const dy = rightEye.y - leftEye.y;
-  const angle = Math.atan2(dy, dx);
+    // 顔の傾きを計算する
+    const dx = rightEye.x - leftEye.x;
+    const dy = rightEye.y - leftEye.y;
+    const angle = Math.atan2(dy, dx);
 
-  // 顔の幅を計算する（左右の耳の距離）
-  const faceWidth = Math.sqrt(Math.pow(rightEarTragion.x - leftEarTragion.x, 2) + Math.pow(rightEarTragion.y - leftEarTragion.y, 2));
-  const baseFaceWidth = 200; // 基準となる顔の幅
+    // 顔の幅を計算する（左右の耳の距離）
+    const faceWidth = Math.sqrt(Math.pow(rightEarTragion.x - leftEarTragion.x, 2) + Math.pow(rightEarTragion.y - leftEarTragion.y, 2));
+    const baseFaceWidth = 200; // 基準となる顔の幅
 
-  // スケールを計算する
-  const scale = baseFaceWidth / faceWidth;
+    // スケールを計算する
+    const scale = baseFaceWidth / faceWidth;
 
-  if (currentDeco === 'hige') {
-    const { x: adjustedX, y: adjustedY } =
-      calculateRelativePosition(noseTip.x, noseTip.y, noseTip, mouthCenter, 0.15, -0.5, angle);
-    drawDecoImage({
-      image: decoLoadedImage.hige,
-      x: adjustedX,
-      y: adjustedY,
-      scale: 4 * scale,
-      angle: angle
-    });
-  } else if (currentDeco === 'rabbit') {
-    const { x: adjustedX, y: adjustedY } =
-      calculateRelativePosition(rightEye.x, rightEye.y, rightEye, noseTip, -0.6, 1, angle);
-    drawDecoImage({
-      image: decoLoadedImage.rabbit,
-      x: adjustedX,
-      y: adjustedY,
-      scale: 3.2 * scale,
-      angle: angle
-    });
-  } else if (currentDeco === 'ribbon') {
-    const { x: adjustedX, y: adjustedY } =
-      calculateRelativePosition(noseTip.x, noseTip.y, noseTip, mouthCenter, 0.3, 0.05, angle);
-    drawDecoImage({
-      image: decoLoadedImage.ribbon,
-      x: adjustedX,
-      y: adjustedY,
-      scale: 3.5 * scale,
-      angle: angle
-    });
-  } else if (currentDeco === 'cat02') {
-    const { x: adjustedX, y: adjustedY } =
-      calculateRelativePosition(rightEye.x, rightEye.y, rightEye, noseTip, -0.5, 0.3, angle);
-    drawDecoImage({
-      image: decoLoadedImage.cat02,
-      x: adjustedX,
-      y: adjustedY,
-      scale: 3.5 * scale,
-      angle: angle
-    });
-  } else if (currentDeco === 'cat03') {
-    const { x: adjustedX, y: adjustedY } =
-      calculateRelativePosition(rightEye.x, rightEye.y, rightEye, noseTip, -0.5, 0.8, angle);
-    drawDecoImage({
-      image: decoLoadedImage.cat03,
-      x: adjustedX,
-      y: adjustedY,
-      scale: 3.5 * scale,
-      angle: angle
-    });
-  } else if (currentDeco === 'bear01') {
-    const { x: adjustedX, y: adjustedY } =
-      calculateRelativePosition(rightEye.x, rightEye.y, rightEye, noseTip, -0.6, 0.75, angle);
-    drawDecoImage({
-      image: decoLoadedImage.bear01,
-      x: adjustedX,
-      y: adjustedY,
-      scale: 3.5 * scale,
-      angle: angle
-    });
-  }
+    if (currentDeco === 'hige') {
+      const { x: adjustedX, y: adjustedY } =
+        calculateRelativePosition(noseTip.x, noseTip.y, noseTip, mouthCenter, 0.15, -0.5, angle);
+      drawDecoImage({
+        image: decoLoadedImage.hige,
+        x: adjustedX,
+        y: adjustedY,
+        scale: 4 * scale,
+        angle: angle
+      });
+    } else if (currentDeco === 'rabbit') {
+      const { x: adjustedX, y: adjustedY } =
+        calculateRelativePosition(rightEye.x, rightEye.y, rightEye, noseTip, -0.6, 1, angle);
+      drawDecoImage({
+        image: decoLoadedImage.rabbit,
+        x: adjustedX,
+        y: adjustedY,
+        scale: 3.2 * scale,
+        angle: angle
+      });
+    } else if (currentDeco === 'ribbon') {
+      const { x: adjustedX, y: adjustedY } =
+        calculateRelativePosition(noseTip.x, noseTip.y, noseTip, mouthCenter, 0.3, 0.05, angle);
+      drawDecoImage({
+        image: decoLoadedImage.ribbon,
+        x: adjustedX,
+        y: adjustedY,
+        scale: 3.5 * scale,
+        angle: angle
+      });
+    } else if (currentDeco === 'cat02') {
+      const { x: adjustedX, y: adjustedY } =
+        calculateRelativePosition(rightEye.x, rightEye.y, rightEye, noseTip, -0.5, 0.3, angle);
+      drawDecoImage({
+        image: decoLoadedImage.cat02,
+        x: adjustedX,
+        y: adjustedY,
+        scale: 3.5 * scale,
+        angle: angle
+      });
+    } else if (currentDeco === 'cat03') {
+      const { x: adjustedX, y: adjustedY } =
+        calculateRelativePosition(rightEye.x, rightEye.y, rightEye, noseTip, -0.5, 0.8, angle);
+      drawDecoImage({
+        image: decoLoadedImage.cat03,
+        x: adjustedX,
+        y: adjustedY,
+        scale: 3.5 * scale,
+        angle: angle
+      });
+    } else if (currentDeco === 'bear01') {
+      const { x: adjustedX, y: adjustedY } =
+        calculateRelativePosition(rightEye.x, rightEye.y, rightEye, noseTip, -0.6, 0.75, angle);
+      drawDecoImage({
+        image: decoLoadedImage.bear01,
+        x: adjustedX,
+        y: adjustedY,
+        scale: 3.5 * scale,
+        angle: angle
+      });
+    }
+  });
 }
 
 // デコレーション画像をロードする関数
