@@ -45,19 +45,25 @@ function addEventListeners() {
 // Webカメラを有効にする関数
 async function enableCam() {
   const constraints = {
+    audio: false,
     video: true,
     width: 640,
     height: 480
   };
 
-  const stream = await navigator.mediaDevices.getUserMedia(constraints);
-  webcamElement.srcObject = stream;
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    webcamElement.srcObject = stream;
 
-  return new Promise((resolve) => {
-    webcamElement.onloadedmetadata = () => {
-      resolve();
-    };
-  });
+    return new Promise((resolve) => {
+      webcamElement.onloadedmetadata = () => {
+        resolve();
+      };
+    });
+  } catch (error) {
+    console.error('Error accessing webcam: ', error);
+    alert('カメラのアクセスに失敗しました。カメラのアクセス権限を確認してください。');
+  }
 }
 
 // Canvasの初期化関数
