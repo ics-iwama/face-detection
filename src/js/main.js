@@ -57,6 +57,7 @@ async function enableCam() {
 
     return new Promise((resolve) => {
       webcamElement.onloadedmetadata = () => {
+        webcamElement.play();
         resolve();
       };
     });
