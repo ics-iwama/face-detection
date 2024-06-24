@@ -37,47 +37,49 @@
   <div id='canvasWrapper'>
     <canvas id='canvas'></canvas>
   </div>
-  <div class='position-controller'>
-    <button class='position-controllerButton position-controllerButton-top' data-position='top'><span>↑</span></button>
-    <button class='position-controllerButton position-controllerButton-bottom' data-position='bottom'><span>↓</span>
-    </button>
-    <button class='position-controllerButton position-controllerButton-right' data-position='right'><span>↑</span>
-    </button>
-    <button class='position-controllerButton position-controllerButton-left' data-position='left'><span>↓</span>
-    </button>
+  <div class='buttons'>
+    <div class='position-controller'>
+      <button class='position-controllerButton position-controllerButton-top' data-position='top'><span>↑</span></button>
+      <button class='position-controllerButton position-controllerButton-bottom' data-position='bottom'><span>↓</span>
+      </button>
+      <button class='position-controllerButton position-controllerButton-right' data-position='right'><span>↑</span>
+      </button>
+      <button class='position-controllerButton position-controllerButton-left' data-position='left'><span>↓</span>
+      </button>
+    </div>
+    <ul class='buttonList'>
+      <li class='buttonList-item'>
+        <button class='button' data-deco='hige'>
+          <img src='/face-detection/images/hige.png' alt='ひげのスタンプ' width='80'>
+        </button>
+      </li>
+      <li class='buttonList-item'>
+        <button class='button' data-deco='rabbit'>
+          <img src='/face-detection/images/rabbit.png' alt='リップのスタンプ' width='60'>
+        </button>
+      </li>
+      <li class='buttonList-item'>
+        <button class='button button-white' data-deco='ribbon'>
+          <img src='/face-detection/images/ribbon.png' alt='リボンのスタンプ' width='80'>
+        </button>
+      </li>
+      <li class='buttonList-item'>
+        <button class='button' data-deco='cat02'>
+          <img src='/face-detection/images/cat02.png' alt='猫耳のスタンプ' width='80'>
+        </button>
+      </li>
+      <li class='buttonList-item'>
+        <button class='button' data-deco='cat03'>
+          <img src='/face-detection/images/cat03.png' alt='猫耳のスタンプ' width='80'>
+        </button>
+      </li>
+      <li class='buttonList-item'>
+        <button class='button' data-deco='bear01'>
+          <img src='/face-detection/images/bear01.png' alt='クマ耳のスタンプ' width='80'>
+        </button>
+      </li>
+    </ul>
   </div>
-  <ul class='buttonList'>
-    <li class='buttonList-item'>
-      <button class='button' data-deco='hige'>
-        <img src='/face-detection/images/hige.png' alt='ひげのスタンプ' width='80'>
-      </button>
-    </li>
-    <li class='buttonList-item'>
-      <button class='button' data-deco='rabbit'>
-        <img src='/face-detection/images/rabbit.png' alt='リップのスタンプ' width='60'>
-      </button>
-    </li>
-    <li class='buttonList-item'>
-      <button class='button button-white' data-deco='ribbon'>
-        <img src='/face-detection/images/ribbon.png' alt='リボンのスタンプ' width='80'>
-      </button>
-    </li>
-    <li class='buttonList-item'>
-      <button class='button' data-deco='cat02'>
-        <img src='/face-detection/images/cat02.png' alt='猫耳のスタンプ' width='80'>
-      </button>
-    </li>
-    <li class='buttonList-item'>
-      <button class='button' data-deco='cat03'>
-        <img src='/face-detection/images/cat03.png' alt='猫耳のスタンプ' width='80'>
-      </button>
-    </li>
-    <li class='buttonList-item'>
-      <button class='button' data-deco='bear01'>
-        <img src='/face-detection/images/bear01.png' alt='クマ耳のスタンプ' width='80'>
-      </button>
-    </li>
-  </ul>
 </div>
 <script type='module' src='js/main.js'></script>
 </body>
