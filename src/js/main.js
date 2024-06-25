@@ -1,11 +1,11 @@
 // グローバルな変数定義
 let detector;
 let results;
-let decoImageList = ['hige', 'ribbon', 'rabbit', 'cat02', 'cat03', 'bear01']; //loadする画像のリスト
-let decoLoadedImage = {}; // loadした画像を格納するオブジェクト
-let buttonElements = document.querySelectorAll('.button');
-let positionButtonElements = document.querySelectorAll('.position-controllerButton');
-let currentDeco = undefined; // 現在選択されているデコレーション
+let decoLoadedImage = {}; // スタンプ画像を格納するオブジェクト
+let currentDeco = undefined; // 現在選択されているスタンプ
+const decoImageList = ['hige', 'ribbon', 'rabbit', 'cat02', 'cat03', 'bear01']; // スタンプ画像のリスト
+const buttonElements = document.querySelectorAll('.button');
+const positionButtonElements = document.querySelectorAll('.position-controllerButton');
 
 let positionX = 0;
 let positionY = 0;
@@ -48,7 +48,7 @@ async function enableCam() {
     audio: false,
     video: true,
     width: 640,
-    height: 480
+    height: 480,
   };
 
   try {
@@ -91,7 +91,7 @@ function drawWebCamToCanvas() {
     0,
     0,
     webcamElement.videoWidth,
-    webcamElement.videoHeight
+    webcamElement.videoHeight,
   );
 
   ctx.restore(); // 反転を元に戻す
@@ -120,7 +120,7 @@ async function estimateFaces() {
   results = await detector.estimateFaces(webcamElement, estimationConfig);
 }
 
-// デコレーションの位置を計算する関数
+// スタンプ画像の位置を計算する関数
 function calculateRelativePosition(baseX, baseY, referencePoint1, referencePoint2, offsetXRatio, offsetYRatio, angle) {
   const dx = referencePoint2.x - referencePoint1.x;
   const dy = referencePoint2.y - referencePoint1.y;
@@ -138,7 +138,7 @@ function calculateAdjustedPosition(baseX, baseY, offsetX, offsetY, angle) {
   return { x: adjustedX, y: adjustedY };
 }
 
-// Canvasにデコレーション画像を描画する関数
+// Canvasにスタンプ画像を描画する関数
 function drawCanvas() {
   if (!results || results.length === 0) return;
 
@@ -164,7 +164,7 @@ function drawCanvas() {
     const angle = Math.atan2(dy, dx);
 
     // 顔の幅を計算する（左右の耳の距離）
-    const faceWidth = Math.sqrt(Math.pow(rightEarTragion.x - leftEarTragion.x, 2) + Math.pow(rightEarTragion.y - leftEarTragion.y, 2));
+    const faceWidth = Math.hypot((rightEarTragion.x - leftEarTragion.x), (rightEarTragion.y - leftEarTragion.y));
     const baseFaceWidth = 200; // 基準となる顔の幅
 
     // スケールを計算する
@@ -178,7 +178,7 @@ function drawCanvas() {
         x: adjustedX,
         y: adjustedY,
         scale: 4 * scale,
-        angle: angle
+        angle: angle,
       });
     } else if (currentDeco === 'rabbit') {
       const { x: adjustedX, y: adjustedY } =
@@ -188,7 +188,7 @@ function drawCanvas() {
         x: adjustedX,
         y: adjustedY,
         scale: 3.2 * scale,
-        angle: angle
+        angle: angle,
       });
     } else if (currentDeco === 'ribbon') {
       const { x: adjustedX, y: adjustedY } =
@@ -198,7 +198,7 @@ function drawCanvas() {
         x: adjustedX,
         y: adjustedY,
         scale: 3.5 * scale,
-        angle: angle
+        angle: angle,
       });
     } else if (currentDeco === 'cat02') {
       const { x: adjustedX, y: adjustedY } =
@@ -208,7 +208,7 @@ function drawCanvas() {
         x: adjustedX,
         y: adjustedY,
         scale: 3.5 * scale,
-        angle: angle
+        angle: angle,
       });
     } else if (currentDeco === 'cat03') {
       const { x: adjustedX, y: adjustedY } =
@@ -218,7 +218,7 @@ function drawCanvas() {
         x: adjustedX,
         y: adjustedY,
         scale: 3.5 * scale,
-        angle: angle
+        angle: angle,
       });
     } else if (currentDeco === 'bear01') {
       const { x: adjustedX, y: adjustedY } =
@@ -228,13 +228,13 @@ function drawCanvas() {
         x: adjustedX,
         y: adjustedY,
         scale: 3.5 * scale,
-        angle: angle
+        angle: angle,
       });
     }
   });
 }
 
-// デコレーション画像をロードする関数
+// スタンプ画像をロードする関数
 function loadDecoImages() {
   decoImageList.forEach((name) => {
     const img = new Image();
@@ -243,7 +243,7 @@ function loadDecoImages() {
   });
 }
 
-// デコレーション画像を描画する関数
+// スタンプ画像を描画する関数
 function drawDecoImage({ image, x, y, scale = 1, xFix = 0, yFix = 0, angle = 0 }) {
   const flippedX = canvasElement.width - x;
   const dx = flippedX - image.width / scale / 2; // 画像の中心に合わせるための計算
@@ -259,7 +259,7 @@ function drawDecoImage({ image, x, y, scale = 1, xFix = 0, yFix = 0, angle = 0 }
     -image.width / scale / 2,
     -image.height / scale / 2,
     image.width / scale,
-    image.height / scale
+    image.height / scale,
   );
   ctx.restore(); // 回転前の状態に戻す
 }
@@ -276,7 +276,7 @@ function render() {
 // 初期化関数
 async function init() {
   addEventListeners(); // イベントリスナーを追加
-  loadDecoImages(); // デコレーション画像をロード
+  loadDecoImages(); // スタンプ画像をロード
   await enableCam(); // Webカメラの起動
   await createFaceDetector(); // 顔検知モデルの初期化
   initCanvas(); // Canvasの初期化
