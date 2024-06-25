@@ -104,8 +104,8 @@ body {
 
   .buttons {
     position: absolute;
-    right: 40px;
     top: calc(100dvh - 240px);
+    right: 40px;
     left: 50%;
     gap: 20px;
     width: 100%;

@@ -1,8 +1,8 @@
 // グローバルな変数定義
 let detector;
 let results;
-let decoLoadedImage = {}; // スタンプ画像を格納するオブジェクト
 let currentDeco = undefined; // 現在選択されているスタンプ
+const decoLoadedImage = {}; // スタンプ画像を格納するオブジェクト
 const decoImageList = ['hige', 'ribbon', 'rabbit', 'cat02', 'cat03', 'bear01']; // スタンプ画像のリスト
 const buttonElements = document.querySelectorAll('.button');
 const positionButtonElements = document.querySelectorAll('.position-controllerButton');
@@ -48,7 +48,7 @@ async function enableCam() {
     audio: false,
     video: true,
     width: 640,
-    height: 480,
+    height: 480
   };
 
   try {
@@ -91,7 +91,7 @@ function drawWebCamToCanvas() {
     0,
     0,
     webcamElement.videoWidth,
-    webcamElement.videoHeight,
+    webcamElement.videoHeight
   );
 
   ctx.restore(); // 反転を元に戻す
@@ -178,7 +178,7 @@ function drawCanvas() {
         x: adjustedX,
         y: adjustedY,
         scale: 4 * scale,
-        angle: angle,
+        angle: angle
       });
     } else if (currentDeco === 'rabbit') {
       const { x: adjustedX, y: adjustedY } =
@@ -188,7 +188,7 @@ function drawCanvas() {
         x: adjustedX,
         y: adjustedY,
         scale: 3.2 * scale,
-        angle: angle,
+        angle: angle
       });
     } else if (currentDeco === 'ribbon') {
       const { x: adjustedX, y: adjustedY } =
@@ -198,7 +198,7 @@ function drawCanvas() {
         x: adjustedX,
         y: adjustedY,
         scale: 3.5 * scale,
-        angle: angle,
+        angle: angle
       });
     } else if (currentDeco === 'cat02') {
       const { x: adjustedX, y: adjustedY } =
@@ -208,7 +208,7 @@ function drawCanvas() {
         x: adjustedX,
         y: adjustedY,
         scale: 3.5 * scale,
-        angle: angle,
+        angle: angle
       });
     } else if (currentDeco === 'cat03') {
       const { x: adjustedX, y: adjustedY } =
@@ -218,17 +218,17 @@ function drawCanvas() {
         x: adjustedX,
         y: adjustedY,
         scale: 3.5 * scale,
-        angle: angle,
+        angle: angle
       });
     } else if (currentDeco === 'bear01') {
       const { x: adjustedX, y: adjustedY } =
-        calculateRelativePosition(rightEye.x, rightEye.y, rightEye, noseTip, -0.6, 0.75, angle);
+        calculateRelativePosition(rightEye.x, rightEye.y, rightEye, noseTip, -0.5, 0.75, angle);
       drawDecoImage({
         image: decoLoadedImage.bear01,
         x: adjustedX,
         y: adjustedY,
         scale: 3.5 * scale,
-        angle: angle,
+        angle: angle
       });
     }
   });
@@ -259,7 +259,7 @@ function drawDecoImage({ image, x, y, scale = 1, xFix = 0, yFix = 0, angle = 0 }
     -image.width / scale / 2,
     -image.height / scale / 2,
     image.width / scale,
-    image.height / scale,
+    image.height / scale
   );
   ctx.restore(); // 回転前の状態に戻す
 }
